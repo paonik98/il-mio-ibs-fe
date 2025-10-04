@@ -10,7 +10,8 @@ import {
 } from "../types";
 
 // Configurazione base API
-const API_BASE_URL = process.env.VAR_API_URL || "http://localhost:3000/api";
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || "http://localhost:3000/api";
 
 // Utility per gestire le richieste
 const handleResponse = async <T>(response: Response): Promise<T> => {
