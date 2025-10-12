@@ -5,103 +5,82 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-500 to-blue-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
-          <div className="text-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-              Benvenuto su MyApp
-            </h1>
-            <p className="text-xl sm:text-2xl mb-8 text-blue-100">
-              Condividi le tue esperienze con la community
-            </p>
-            <button
-              onClick={() => navigate("/experiences")}
-              className="bg-white text-blue-600 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-50 transition shadow-lg"
-            >
-              Scopri le Esperienze
-            </button>
-          </div>
+    <div className="min-h-screen bg-background text-text transition-colors duration-500">
+      {/* HERO */}
+      <section className="bg-primary text-white py-20 sm:py-32 transition-colors duration-500">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+            Vivere con l’Intestino Irritabile
+          </h1>
+          <p className="text-lg sm:text-xl mb-8 text-blue-100">
+            Condividi la tua storia, trova conforto e ispira chi vive la tua
+            stessa esperienza.
+          </p>
+          <button
+            onClick={() => navigate("/experiences")}
+            className="bg-white text-primary px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-50 transition shadow-lg"
+          >
+            Scopri le Esperienze
+          </button>
         </div>
-      </div>
+      </section>
 
-      {/* Chi Siamo Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* COS’È L’INTESTINO IRRITABILE */}
+      <section className="max-w-6xl mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
-            Chi Siamo
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-primary">
+            Cos’è la Sindrome dell’Intestino Irritabile?
           </h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto mb-8"></div>
+          <div className="w-20 h-1 bg-secondary mx-auto mb-8 rounded-full"></div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <p className="text-lg text-gray-600 mb-6">
-              Siamo una piattaforma dedicata alla condivisione di esperienze
-              personali. La nostra missione è creare una community dove le
-              persone possono raccontare le loro storie, ispirare gli altri e
-              trovare connessioni autentiche.
+            <p className="text-lg mb-6 text-text">
+              La sindrome dell’intestino irritabile (IBS) è un disturbo cronico
+              che coinvolge l’apparato digerente e può causare dolore
+              addominale, gonfiore, e alterazioni del transito intestinale.
+              Nonostante non sia una malattia grave, può influenzare
+              significativamente la qualità della vita.
             </p>
-            <p className="text-lg text-gray-600 mb-6">
-              Crediamo nel potere delle storie personali e nell'importanza di
-              condividere momenti significativi della propria vita. Ogni
-              esperienza conta e può fare la differenza nella vita di qualcun
-              altro.
+            <p className="text-lg text-text">
+              Questo sito nasce per dare voce a chi convive con l’IBS: uno
+              spazio dove condividere esperienze, scambiare consigli e sentirsi
+              meno soli.
             </p>
           </div>
-          <div className="bg-blue-100 rounded-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">
-              I Nostri Valori
+          <div className="bg-secondary/10 dark:bg-secondary/20 rounded-xl p-8 transition-colors duration-500">
+            <h3 className="text-2xl font-semibold text-secondary mb-4">
+              Perché condividere?
             </h3>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
-                <span className="text-gray-700">
-                  Autenticità nelle storie condivise
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
-                <span className="text-gray-700">
-                  Rispetto per ogni esperienza
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
-                <span className="text-gray-700">
-                  Community inclusiva e accogliente
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-blue-600 mr-2">✓</span>
-                <span className="text-gray-700">
-                  Crescita personale attraverso la condivisione
-                </span>
+            <ul className="space-y-4 text-text">
+              <li>🌿 Condividere esperienze aiuta la consapevolezza.</li>
+              <li>💬 Le storie vere possono offrire conforto e sostegno.</li>
+              <li>
+                🫶 La community può essere un punto di forza per chi lotta ogni
+                giorno.
               </li>
             </ul>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* CTA Section */}
-      <div className="bg-gray-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            Pronto a Condividere la Tua Storia?
-          </h2>
-          <p className="text-lg text-gray-600 mb-8">
-            Unisciti alla nostra community e inizia a raccontare le tue
-            esperienze
-          </p>
-          <button
-            onClick={() => navigate("/register")}
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition shadow-lg"
-          >
-            Registrati Ora
-          </button>
-        </div>
-      </div>
+      {/* CTA */}
+      <section className="bg-secondary/10 dark:bg-secondary/25 py-16 text-center transition-colors duration-500">
+        <h2 className="text-3xl font-bold mb-4 text-primary">
+          Racconta la tua storia
+        </h2>
+        <p className="text-lg mb-8 text-text">
+          Aiuta altre persone a capire che non sono sole nel loro percorso con
+          l’IBS.
+        </p>
+        <button
+          onClick={() => navigate("/register")}
+          className="bg-primary text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary/90 transition shadow-lg"
+        >
+          Condividi la tua esperienza
+        </button>
+      </section>
     </div>
   );
 };
