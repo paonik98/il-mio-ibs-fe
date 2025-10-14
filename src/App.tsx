@@ -10,6 +10,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Profile from "./pages/Profile";
 import { ThemeProvider } from "./context/ThemeContext";
 import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App: React.FC = () => {
   useWakeUp();
@@ -24,7 +25,22 @@ const App: React.FC = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/experiences" element={<Experiences />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/write-experience"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </Layout>
         </Router>
