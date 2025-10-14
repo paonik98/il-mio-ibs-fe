@@ -3,19 +3,17 @@
 @tailwind utilities;
 
 /* Tema chiaro */
+/* https://coolors.co/palette/001219-005f73-0a9396-94d2bd-e9d8a6-ee9b00-ca6702-bb3e03-ae2012-9b2226*/
 :root {
-  --color-background: #ffffff;
-  --color-surface: #f3f4f6;
+  --color-background: #e9d8a6;
   --color-text: #111827;
-  --color-text-secondary: #6b7280;
-  --color-primary: #3b82f6;
-  --color-primary-light: #60a5fa;
-  --color-primary-dark: #1e40af;
-  --color-secondary: #9333ea;
-  --color-secondary-light: #c084fc;
-  --color-secondary-dark: #6d28d9;
+  --color-primary: #005f73;
+  --color-secondary: #9b2226;
+  --color-tertiary: #001219;
+  --color-card: #ffffff;
+  --color-fourth: #0a9396;
   --color-success: #22c55e;
-  --color-error: #ef4444;
+  --color-error: #9b2226;
   --color-warning: #f59e42;
   --color-info: #0ea5e9;
   --color-border: #e5e7eb;
@@ -26,16 +24,11 @@
 
 /* Tema scuro */
 .dark {
-  --color-background: #0f172a;
-  --color-surface: #1e293b;
+  --color-background: #001219;
   --color-text: #f9fafb;
-  --color-text-secondary: #94a3b8;
-  --color-primary: #60a5fa;
-  --color-primary-light: #3b82f6;
-  --color-primary-dark: #1e40af;
-  --color-secondary: #c084fc;
-  --color-secondary-light: #a78bfa;
-  --color-secondary-dark: #6d28d9;
+  --color-primary: #005f73;
+  --color-secondary: #ffffff;
+  --color-card: #005f73;
   --color-success: #22c55e;
   --color-error: #ef4444;
   --color-warning: #f59e42;

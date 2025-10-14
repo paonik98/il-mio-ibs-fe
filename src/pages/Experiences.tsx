@@ -56,28 +56,28 @@ const Experiences: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-background dark:bg-background py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-primary dark:text-secondary mb-4">
             Esperienze della Community
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-text dark:text-text">
             Scopri le storie condivise dai nostri utenti
           </p>
-          <div className="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+          <div className="w-20 h-1 bg-primary dark:bg-secondary mx-auto mt-4"></div>
         </div>
 
-        {/* Experiences Grid */}
+        {/* Experiences List */}
         {experiences.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
+            <p className="text-text-secondary dark:text-text-secondary text-lg">
               Nessuna esperienza disponibile al momento
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-col space-y-6">
             {experiences.map((experience) => (
               <ExperienceCard
                 key={experience._id || experience.id}
@@ -113,16 +113,16 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
     questions.map((q) => [q._id, q.text])
   );
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
+    <div className="bg-white dark:bg-white/10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col">
       {/* Header utente */}
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
+      <div className="bg-primary dark:bg-primary px-6 py-4">
         <div className="flex items-center space-x-3">
           <div className="flex-shrink-0">
             <div
-              className={`h-12 w-12 rounded-full flex items-center justify-center text-white font-bold text-lg transition hover:ring-2 ${
+              className={`h-12 w-12 rounded-full flex items-center justify-center text-white font-bold text-lg border-2 border-white transition ${
                 experience.avatarColor
                   ? avatarColorMap[experience.avatarColor]
-                  : "bg-blue-600 hover:ring-blue-300"
+                  : "bg-secondary dark:bg-secondary"
               }`}
             >
               {getInitials(userName)}
@@ -130,21 +130,23 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
           </div>
           <div className="text-white">
             <h3 className="font-semibold text-lg">{userName}</h3>
-            <p className="text-blue-100 text-sm">{userAge} anni</p>
+            <p className="text-white text-sm">{userAge} anni</p>
           </div>
         </div>
       </div>
 
       {/* Contenuto esperienza */}
       <div className="p-6 flex-grow">
-        <h4 className="text-xl font-bold text-gray-900 mb-3">{title}</h4>
+        <h4 className="text-xl font-bold text-primary dark:text-secondary mb-3">
+          {title}
+        </h4>
 
         {experience.content?.map((item, idx) => (
           <div key={idx} className="mb-4">
-            <p className="font-semibold text-gray-800">
-              {questionMap[item.questionId] || "Domanda non trovata"}:
+            <p className="font-semibold text-text dark:text-text">
+              {questionMap[item.questionId] || "Domanda non trovata"}
             </p>
-            <p className="text-gray-600 mt-1 whitespace-pre-line">
+            <p className="text-text-secondary dark:text-text-secondary mt-1 whitespace-pre-line">
               {item.answer}
             </p>
           </div>
@@ -152,10 +154,10 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
       </div>
 
       {/* Footer */}
-      <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
-        <div className="flex items-center justify-between text-sm text-gray-500">
+      <div className="px-6 py-4 bg-white dark:bg-white/10">
+        <div className="flex items-center justify-between text-sm text-text-secondary dark:text-text-secondary">
           <span>{date}</span>
-          <button className="text-blue-600 hover:text-blue-700 font-medium transition">
+          <button className="text-tertiary dark:text-tertiary hover:text-tertiary/80 dark:hover:text-tertiary/80 font-medium transition">
             Leggi di più →
           </button>
         </div>

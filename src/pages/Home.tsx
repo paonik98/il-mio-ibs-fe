@@ -7,21 +7,15 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-background text-text transition-colors duration-500">
       {/* HERO */}
-      <section className="bg-primary text-white py-20 sm:py-32 transition-colors duration-500">
+      <section className="bg-primary text-white py-12 sm:py-24 transition-colors duration-500">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-            Vivere con l’Intestino Irritabile
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+            Vivere con l'Intestino Irritabile
           </h1>
-          <p className="text-lg sm:text-xl mb-8 text-blue-100">
+          <p className="text-lg sm:text-xl mb-4 text-blue-100">
             Condividi la tua storia, trova conforto e ispira chi vive la tua
             stessa esperienza.
           </p>
-          <button
-            onClick={() => navigate("/experiences")}
-            className="bg-white text-primary px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-50 transition shadow-lg"
-          >
-            Scopri le Esperienze
-          </button>
         </div>
       </section>
 
@@ -68,18 +62,69 @@ const Home: React.FC = () => {
       {/* CTA */}
       <section className="bg-secondary/10 dark:bg-secondary/25 py-16 text-center transition-colors duration-500">
         <h2 className="text-3xl font-bold mb-4 text-primary">
-          Racconta la tua storia
+          Esplora e Condividi
         </h2>
         <p className="text-lg mb-8 text-text">
-          Aiuta altre persone a capire che non sono sole nel loro percorso con
-          l’IBS.
+          Unisciti alla nostra community e fai la differenza
         </p>
-        <button
-          onClick={() => navigate("/register")}
-          className="bg-primary text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary/90 transition shadow-lg"
-        >
-          Condividi la tua esperienza
-        </button>
+        <div className="flex flex-col md:flex-row justify-center gap-8 max-w-6xl mx-auto px-4">
+          {/* Card 1 - Scopri di più */}
+          <div className="flex-1 bg-primary dark:bg-primary p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col">
+            <div className="flex-1 mb-8">
+              <h3 className="text-2xl font-semibold mb-6 text-white">
+                Scopri di più sull'intestino irritabile
+              </h3>
+              <p className="text-white text-lg">
+                Informati sui sintomi, le cause e le possibili soluzioni per
+                gestire l'IBS.
+              </p>
+            </div>
+            <button
+              onClick={() => navigate("/")}
+              className="w-full bg-white text-primary px-6 py-4 rounded-lg font-semibold hover:bg-gray-100 transition"
+            >
+              Scopri di più
+            </button>
+          </div>
+
+          {/* Card 2 - Racconta la tua storia */}
+          <div className="flex-1 bg-primary dark:bg-primary p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col">
+            <div className="flex-1 mb-8">
+              <h3 className="text-2xl font-semibold mb-6 text-white">
+                Racconta la tua storia
+              </h3>
+              <p className="text-white text-lg">
+                Condividi la tua esperienza e aiuta altri a sentirsi meno soli
+                nel loro percorso.
+              </p>
+            </div>
+            <button
+              onClick={() => navigate("/register")}
+              className="w-full bg-white text-primary px-6 py-4 rounded-lg font-semibold hover:bg-gray-100 transition"
+            >
+              Condividi
+            </button>
+          </div>
+
+          {/* Card 3 - Leggi le storie */}
+          <div className="flex-1 bg-primary dark:bg-primary p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col">
+            <div className="flex-1 mb-8">
+              <h3 className="text-2xl font-semibold mb-6 text-white">
+                Leggi le storie degli altri
+              </h3>
+              <p className="text-white text-lg">
+                Scopri le esperienze condivise dalla nostra community e trova
+                ispirazione.
+              </p>
+            </div>
+            <button
+              onClick={() => navigate("/experiences")}
+              className="w-full bg-white text-primary px-6 py-4 rounded-lg font-semibold hover:bg-gray-100 transition"
+            >
+              Leggi le storie
+            </button>
+          </div>
+        </div>
       </section>
     </div>
   );

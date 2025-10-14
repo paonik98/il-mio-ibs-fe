@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext"; // 👈 Importa il tema
@@ -10,6 +10,8 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
   const { theme, toggleTheme } = useTheme(); // 👈 Usa il contesto tema
+  const menuRef = useRef<HTMLDivElement>(null);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const toggleMenu = (): void => {
     setIsMenuOpen(!isMenuOpen);
@@ -29,6 +31,16 @@ const Navbar: React.FC = () => {
       .slice(0, 2)
       .join("");
   };
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <nav className="bg-background dark:bg-background shadow-md border-b border-border dark:border-border transition-colors duration-300">
@@ -84,43 +96,67 @@ const Navbar: React.FC = () => {
             {isAuthenticated ? (
               <div className="relative">
                 <button
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  //onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  onMouseEnter={() => {
+                    // annulla eventuale chiusura in corso
+                    if (closeTimeoutRef.current)
+                      clearTimeout(closeTimeoutRef.current);
+                    setIsUserMenuOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    // imposta chiusura con ritardo
+                    closeTimeoutRef.current = setTimeout(() => {
+                      setIsUserMenuOpen(false);
+                    }, 300);
+                  }}
                   className="h-10 w-10 rounded-full bg-primary text-background flex items-center justify-center font-semibold hover:ring-2 hover:ring-primary-light transition"
                 >
                   {getUserInitials()}
                 </button>
 
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-surface dark:bg-surface rounded-lg shadow-lg py-2 z-50 border border-border dark:border-border">
+                  <button
+                    onMouseEnter={() => {
+                      if (closeTimeoutRef.current)
+                        clearTimeout(closeTimeoutRef.current);
+                    }}
+                    onMouseLeave={() => {
+                      // imposta chiusura con ritardo
+                      closeTimeoutRef.current = setTimeout(() => {
+                        setIsUserMenuOpen(false);
+                      }, 200);
+                    }}
+                    className="absolute right-0 mt-2 w-48 bg-tertiary hover:bg-hover dark:bg-surface rounded-lg shadow-lg py-2 z-50 border border-border dark:border-border"
+                  >
                     <button
                       onClick={() => {
                         setIsUserMenuOpen(false);
                         navigate("/profile");
                       }}
-                      className="w-full text-left px-4 py-2 text-text dark:text-text hover:bg-hover dark:hover:bg-hover flex items-center space-x-2"
+                      className="w-full text-left px-4 py-2 text-white dark:text-text hover:bg-fourth dark:hover:bg-hover flex items-center space-x-2"
                     >
                       <span>Profilo</span>
                     </button>
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 text-error hover:bg-error dark:hover:bg-error flex items-center space-x-2"
+                      className="w-full text-left px-4 py-2 text-white hover:bg-secondary dark:hover:bg-error flex items-center space-x-2"
                     >
                       <span>Logout</span>
                     </button>
-                  </div>
+                  </button>
                 )}
               </div>
             ) : (
               <>
                 <button
                   onClick={() => navigate("/login")}
-                  className="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary-light dark:hover:bg-primary-light transition"
+                  className="px-4 py-2 text-text dark:text-text border border-text dark:border-text rounded-lg hover:bg-hover dark:hover:bg-hover transition"
                 >
                   Login
                 </button>
                 <button
                   onClick={() => navigate("/register")}
-                  className="px-4 py-2 bg-primary text-background rounded-lg hover:bg-primary-dark transition"
+                  className="px-4 py-2 text-text dark:text-text border border-text dark:border-text rounded-lg hover:bg-hover dark:hover:bg-hover transition"
                 >
                   Registrazione
                 </button>
@@ -232,7 +268,7 @@ const Navbar: React.FC = () => {
                         navigate("/login");
                         setIsMenuOpen(false);
                       }}
-                      className="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary-light dark:hover:bg-primary-light transition"
+                      className="px-4 py-2 text-text dark:text-text border border-text dark:border-text rounded-lg hover:bg-hover dark:hover:bg-hover transition"
                     >
                       Login
                     </button>
@@ -241,7 +277,7 @@ const Navbar: React.FC = () => {
                         navigate("/register");
                         setIsMenuOpen(false);
                       }}
-                      className="px-4 py-2 bg-primary text-background rounded-lg hover:bg-primary-dark transition"
+                      className="px-4 py-2 text-text dark:text-text border border-text dark:border-text rounded-lg hover:bg-hover dark:hover:bg-hover transition"
                     >
                       Registrazione
                     </button>

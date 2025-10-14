@@ -1,208 +1,54 @@
-import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
-import api from "../services/api";
-
-interface ContactFormData {
-  fullName: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+import React from "react";
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState<ContactFormData>({
-    fullName: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [success, setSuccess] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-    setError("");
+  const handleEmailClick = () => {
+    const emailAddress = "info@ilmioibs.com";
+    const subject = "Richiesta informazioni - Il Mio IBS";
+    const mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(
+      subject
+    )}`;
+    window.location.href = mailtoLink;
   };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    setSuccess(false);
-
-    try {
-      // Modifica questo URL con quello della tua API
-      const response = await fetch("http://localhost:3000/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setSuccess(true);
-        setFormData({
-          fullName: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
-      } else {
-        setError("Errore durante l'invio del messaggio");
-      }
-    } catch (err) {
-      setError("Errore di connessione al server");
-      console.error("Contact error:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const { isAuthenticated } = useAuth();
-
-  useEffect(() => {
-    const loadUserData = async () => {
-      if (isAuthenticated) {
-        try {
-          const response = await api.user.getUser();
-          if (response.success && response.data) {
-            const userData = response.data;
-            setFormData((prev) => ({
-              ...prev,
-              fullName: `${userData.name} ${userData.surname || ""}`.trim(),
-              email: userData.email || "",
-            }));
-          }
-        } catch (err) {
-          console.error("Errore nel caricamento dei dati utente:", err);
-        }
-      }
-    };
-
-    loadUserData();
-  }, [isAuthenticated]);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contattaci</h1>
-          <p className="text-lg text-gray-600">
-            Compila il form per inviare un messaggio
+    <div className="min-h-screen bg-background dark:bg-background py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+      <div className="max-w-3xl mx-auto text-center">
+        <div className="bg-card dark:bg-card rounded-2xl shadow-xl p-8 md:p-12">
+          <h1 className="text-4xl font-bold text-primary dark:text-secondary mb-6">
+            Contattaci
+          </h1>
+
+          <div className="w-20 h-1 bg-primary dark:bg-secondary mx-auto mb-8"></div>
+
+          <p className="text-xl text-text dark:text-text mb-8">
+            Hai domande o vuoi condividere qualcosa con noi? Siamo qui per
+            ascoltarti.
           </p>
-          <div className="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
-        </div>
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            Invia un Messaggio
-          </h2>
 
-          {success && (
-            <div className="mb-6 bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-lg">
-              Messaggio inviato con successo! Ti risponderemo presto.
-            </div>
-          )}
+          <p className="text-lg text-text dark:text-text mb-12">
+            Inviaci una email e ti risponderemo il prima possibile.
+          </p>
 
-          {error && (
-            <div className="mb-6 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label
-                htmlFor="fullName"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Nome e Cognome
-              </label>
-              <input
-                type="text"
-                id="fullName"
-                name="fullName"
-                required
-                value={formData.fullName}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Mario Rossi"
-                disabled={isAuthenticated}
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="email@esempio.com"
-                disabled={isAuthenticated}
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="subject"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Oggetto
-              </label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                required
-                value={formData.subject}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Come possiamo aiutarti?"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Messaggio
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                rows={6}
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                placeholder="Scrivi il tuo messaggio qui..."
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition"
+          <button
+            onClick={handleEmailClick}
+            className="inline-flex items-center px-8 py-4 bg-primary dark:bg-secondary text-card dark:text-card rounded-lg text-lg font-semibold hover:bg-primary-dark dark:hover:bg-secondary-dark transition-colors duration-200 shadow-lg hover:shadow-xl"
+          >
+            <svg
+              className="w-6 h-6 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              {loading ? "Invio in corso..." : "Invia Messaggio"}
-            </button>
-          </form>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
+            </svg>
+            Scrivici una email
+          </button>
         </div>
       </div>
     </div>

@@ -57,46 +57,64 @@ const Profile: React.FC = () => {
   if (!userData) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
+    <div className="min-h-screen bg-background dark:bg-background py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto bg-card dark:bg-card shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-2xl p-8">
         {/* Header profilo */}
         <div className="flex items-center space-x-4 mb-6">
           <div
             className={`h-16 w-16 rounded-full flex items-center justify-center text-white font-bold text-2xl ${
-              userData.avatarColor ? userData.avatarColor : "bg-blue-600"
+              userData.avatarColor
+                ? userData.avatarColor
+                : "bg-primary dark:bg-primary"
             }`}
           >
             {getInitials(userData.name, userData.surname)}
           </div>
           <div>
-            <h2 className="text-2xl font-semibold text-gray-900">
+            <h2 className="text-2xl font-semibold text-text dark:text-text">
               {userData.name} {userData.surname}
             </h2>
-            <p className="text-gray-500">{userData.email}</p>
+            <p className="text-text-secondary dark:text-text-secondary">
+              {userData.email}
+            </p>
           </div>
         </div>
 
         {/* Dettagli */}
         <div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-semibold text-text dark:text-text mb-4">
             Dettagli account
           </h3>
-          <div className="text-gray-700 space-y-1">
+          <div className="text-text dark:text-text space-y-3">
             <p>
-              <span className="font-semibold">ID:</span> {userData._id}
+              <span className="font-semibold text-primary dark:text-secondary">
+                Nome:
+              </span>{" "}
+              {userData.name}
             </p>
             <p>
-              <span className="font-semibold">Nome:</span> {userData.name}
+              <span className="font-semibold text-primary dark:text-secondary">
+                Cognome:
+              </span>{" "}
+              {userData.surname}
             </p>
             <p>
-              <span className="font-semibold">Cognome:</span> {userData.surname}
+              <span className="font-semibold text-primary dark:text-secondary">
+                Email:
+              </span>{" "}
+              {userData.email}
             </p>
             <p>
-              <span className="font-semibold">Email:</span> {userData.email}
-            </p>
-            <p>
-              <span className="font-semibold">Data di nascita:</span>{" "}
+              <span className="font-semibold text-primary dark:text-secondary">
+                Data di nascita:
+              </span>{" "}
               {new Date(userData.dateOfBirth).toLocaleDateString("it-IT")}
+            </p>
+            <p>
+              <span className="font-semibold text-primary dark:text-secondary">
+                Colore avatar:
+              </span>{" "}
+              {userData.avatarColor || "Default"}
             </p>
           </div>
         </div>
